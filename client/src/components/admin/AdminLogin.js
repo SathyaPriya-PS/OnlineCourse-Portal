@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const AdminLogin = () => {
   const [email, setEmail] = useState('');
@@ -15,13 +16,15 @@ const AdminLogin = () => {
         password,
       });
 
-      if (res.data.message === 'Login successful') {
-        navigate('/admin/dashboard');
-      }
-    } catch (err) {
-      alert('Login failed. Check your credentials.');
+       if (res.data.message === 'Login successful') {
+      localStorage.setItem('adminToken', res.data.token);
+      navigate('/admin/dashboard');
     }
-  };
+  } catch (err) {
+    toast.error('Login failed. Check your credentials.');
+  }
+};
+
 
   return (
     <div className="login-container">

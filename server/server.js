@@ -1,6 +1,9 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const bcrypt = require('bcrypt');
+require('./Database/db');
 
 const AdminRoutes = require('./Routes/admin/AdminRoutes');
 const courseRoutes = require('./Routes/admin/courseRoutes');
@@ -33,7 +36,5 @@ mongoose.connect('mongodb://localhost:27017/online-course-portal', {
 .catch(err => console.error('MongoDB connection error:', err));
 
 // Start Server
-const PORT = 5000;
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-});
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`✅ Server running on http://localhost:${PORT}`));
